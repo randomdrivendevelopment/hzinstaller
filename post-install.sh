@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script enables dropbear for remove unlocks
+# This script enables dropbear for unlocks
 
 # Update system
 apt-get update >/dev/null
