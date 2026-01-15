@@ -15,7 +15,7 @@ using their rescue shell and provided installimage scripts
 - Run the command `cryptroot-unlock` and enter your disk encryption key
 - Use your server as usual, run the previous step on any reboot
 
-## Sctipt parameters
+## Script parameters
 
 Environment variables:
 - `TARGET`          target user@host for ssh connection to rescue shell
