@@ -14,7 +14,7 @@
 # - SSH_PUB_KEY     ssh public key to install to new os, 
 #                   defualt: ~/.ssh/id_rsa.pub
 # - REBOOT          set to 1 to automatically reboot into new system
-#
+# - INSTALL_PVE     set to 1 to install Proxmox VE
 
 set -e
 
@@ -40,6 +40,10 @@ echo Host name to set: ${HOST}
 scp ~/.ssh/id_rsa.pub       ${TARGET}:/tmp/authorized_keys
 scp "${INSTALL_CONFIG}"     ${TARGET}:/tmp/installimage.conf
 scp post-install.sh         ${TARGET}:/tmp/post-install.sh
+
+if [ "$INSTALL_PVE" ]; then 
+  cat install-pve.sh | ssh -T ${TARGET} 'cat >> /tmp/post-install.sh'
+fi
 
 if [ -z "$KEY" ]; then
   echo Enter disk encryption key:

@@ -25,6 +25,7 @@ Environment variables:
 - `SSH_PUB_KEY`     ssh public key to install to new os, 
                     defualt: `~/.ssh/id_rsa.pub`
 - `REBOOT`          set to 1 to automatically reboot into new system
+- `INSTALL_PVE`     set to 1 to automatically install Proxmox VE
 
 ## Troubleshooting
 
