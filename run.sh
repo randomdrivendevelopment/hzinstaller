@@ -15,6 +15,8 @@
 #                   defualt: ~/.ssh/id_rsa.pub
 # - REBOOT          set to 1 to automatically reboot into new system
 # - INSTALL_PVE     set to 1 to install Proxmox VE
+# - IFACE_FILE      network interface file, default: ${HOST}.iface
+#                   if exists - gets placed to /etc/network/interfaces
 
 set -e
 
@@ -35,6 +37,10 @@ if [ -z "${SSH_PUB_KEY}" ]; then
   SSH_PUB_KEY=~/.ssh/id_rsa.pub
 fi
 
+if [ -z "${IFACE_FILE}" ] && [ -f "./${HOST}.iface" ]; then
+  IFACE_FILE="./${HOST}.iface"
+fi
+
 echo Host name to set: ${HOST}
 
 scp ~/.ssh/id_rsa.pub       ${TARGET}:/tmp/authorized_keys
@@ -43,6 +49,12 @@ scp post-install.sh         ${TARGET}:/tmp/post-install.sh
 
 if [ "$INSTALL_PVE" ]; then 
   cat install-pve.sh | ssh -T ${TARGET} 'cat >> /tmp/post-install.sh'
+fi
+
+if [ "$IFACE_FILE" ]; then 
+  echo 'cat > /etc/network/interfaces <<EOF' | ssh -T ${TARGET} 'cat >> /tmp/post-install.sh'
+  cat ${IFACE_FILE} | ssh -T ${TARGET} 'cat >> /tmp/post-install.sh'
+  echo 'EOF' | ssh -T ${TARGET} 'cat >> /tmp/post-install.sh'
 fi
 
 if [ -z "$KEY" ]; then

@@ -26,6 +26,9 @@ Environment variables:
                     defualt: `~/.ssh/id_rsa.pub`
 - `REBOOT`          set to 1 to automatically reboot into new system
 - `INSTALL_PVE`     set to 1 to automatically install Proxmox VE
+- `IFACE_FILE`      network interface configuration file, 
+                    default: `./${HOST}.iface`
+                    If file exists - it gets places to /etc/network/interfaces
 
 ## Troubleshooting
 
