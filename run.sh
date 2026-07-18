@@ -47,6 +47,8 @@ scp ~/.ssh/id_rsa.pub       ${TARGET}:/tmp/authorized_keys
 scp "${INSTALL_CONFIG}"     ${TARGET}:/tmp/installimage.conf
 scp post-install.sh         ${TARGET}:/tmp/post-install.sh
 
+TARGET=`echo $TARGET|tr -d '[]'`
+
 if [ "$INSTALL_PVE" ]; then 
   cat install-pve.sh | ssh -T ${TARGET} 'cat >> /tmp/post-install.sh'
 fi
