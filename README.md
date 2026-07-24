@@ -3,6 +3,8 @@
 This is a simple wrapper to install encrypted LVM debian at Hetzner
 using their rescue shell and provided installimage scripts
 
+Supports Debian and IPv6-only hosts
+
 ## Quickstart
 
 - Set your server to Rescue mode
@@ -29,15 +31,16 @@ Environment variables:
 - `IFACE_FILE`      network interface configuration file, 
                     default: `./${HOST}.iface`.
                     If file exists - it gets placed to /etc/network/interfaces
+- `IPV6_INITRD`     set to 'static' to configure static IPv6 in initrd.
+                    if no other IPV6_* variables set - it will try autodetect
+- `IPV6_ADDR`       IPv6 address/prefix - example: abcd:abcd:abcd:abcd/64
+- `IPV6_GW`         IPv6 default gw, default: fe80::1
+- `IPV6_IF`         IPv6 interface name, default: autodetect
+
 
 ## Troubleshooting
 
 In case something went wrong, remove REBOOT=1 parameter, re-run installation
 and ssh into rescue shell. Check log files inside home directory.
 
-## Notes
-
-This script is pretty dumb and error handling is very limited.
-If you want to use it for any serious automation you will have to add your own
-system tests around it.
 
