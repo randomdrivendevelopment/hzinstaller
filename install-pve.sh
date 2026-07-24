@@ -26,8 +26,13 @@ wget https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg -O
 sha256sum /usr/share/keyrings/proxmox-archive-keyring.gpg | grep 136673be77aba35dcce385b28737689ad64fd785a797e57897589aed08db6e45
 
 apt-get update
+echo Removing os-prober...
+apt-get remove -y os-prober
 echo Installing Postfix...
 DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
 echo Installing PVE package...
-apt-get install -y proxmox-ve
+apt-get install -y proxmox-default-kernel
+apt-get install -y proxmox-ve open-iscsi chrony
+update-grub
+
 
